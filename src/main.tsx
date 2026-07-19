@@ -1,15 +1,23 @@
-import { StrictMode } from "react"
-import { createRoot } from "react-dom/client"
+import { StrictMode, lazy, Suspense } from "react";
+import { createRoot } from "react-dom/client";
+import { Skeleton } from "@/components/ui/skeleton";
+import "./index.css";
 
-import "./index.css"
-// import App from "./App.tsx"
-// import Landing from "./Landing.tsx"
-import Bio from "./Bio.tsx"
+// const Landing = lazy(() => import("./Landing"));
+// const App = lazy(() => import("./App"));
+const Bio = lazy(() => import("./Bio"));
+// const PageClaude = lazy(() => import("./PageClaude"));
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-      {/* <App />       */}
-      {/* <Landing />       */}
-      <Bio />      
+    <Suspense
+      fallback={
+        <div className="flex h-screen w-screen items-center justify-center">
+          <Skeleton className="h-12 w-12 rounded-full" /> {/* or a full-page skeleton */}
+        </div>
+      }
+    >
+      <Bio />
+    </Suspense>
   </StrictMode>
-)
+);
